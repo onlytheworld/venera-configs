@@ -42,7 +42,7 @@ class JM extends ComicSource {
             let salt = randomInt(1000, 9999)
             let base64 = Convert.encodeBase64(Convert.encodeUtf8(`${pwd}-${salt}`))
             let res = await Network.post(
-                "https://jm365.work/3YeBdF",
+                "https://jm365.work/3YeBdF/login",
                 {
                     ...this.headers,
                     "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
