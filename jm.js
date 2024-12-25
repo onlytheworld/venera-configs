@@ -40,11 +40,11 @@ class JM extends ComicSource {
         /// login func
         login: async (account, pwd) => {
             let salt = randomInt(1000, 9999)
-            let base64 = Convert.encodeBase64(Convert.encodeUtf8(`${pwd}-${salt}`))
+            let base64 = Convert.encodeBase64(Convert.encodeUtf8(`${pwd}-${salt}`)).decodeUtf8()
             let res = await Network.post(
                 "https://jm365.work/3YeBdF/login",
                 {},
-                `username=${account}&password=${base64}\n&id_remember=on&login_remember=on&submit_login=`
+                `username=${account}&password=${pwd}\n&id_remember=on&login_remember=on&submit_login=`
             );
             if (res.status === 200) {
                 this.saveData('token', JSON.parse(res.body).token)
