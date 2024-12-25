@@ -44,8 +44,6 @@ class JM extends ComicSource {
             let res = await Network.post(
                 "https://jm365.work/3YeBdF/login",
                 {
-                    ...this.headers,
-                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
                 },
                 `username=${account}&password=${base64}\n&id_remember=on&login_remember=on&submit_login=`
             );
