@@ -33,6 +33,36 @@ class JM extends ComicSource {
         return JM.apiDomains[index]
     }
 
+      
+    /// account
+    /// set this to null to desable account feature
+    account = {
+        /// login func
+        login: async (account, pwd) => {
+            let salt = randomInt(1000, 9999)
+            let base64 = Convert.encodeBase64(Convert.encodeUtf8(`${pwd}-${salt}`))
+            let res = await Network.post(
+                "https://jm365.work/3YeBdF",
+                {
+                    ...this.headers,
+                    "Content-Type": "application/x-www-form-urlencoded;charset=utf-8"
+                },
+                `username=${account}&password=${base64}\n&id_remember=on&login_remember=on&submit_login=`
+            );
+            if (res.status === 200) {
+                this.saveData('token', JSON.parse(res.body).token)
+                return 'ok'
+            } else {
+                throw `Invalid Status Code ${res.status}`
+            }
+        },
+        // callback when user log out
+        logout: () => {
+            this.deleteData('token')
+        },
+        registerWebsite: "https://jm365.work/3YeBdF/login"
+    }
+
     isNum(str) {
         return /^\d+$/.test(str)
     }
