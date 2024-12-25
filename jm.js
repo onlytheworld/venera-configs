@@ -43,8 +43,7 @@ class JM extends ComicSource {
             let base64 = Convert.encodeBase64(Convert.encodeUtf8(`${pwd}-${salt}`))
             let res = await Network.post(
                 "https://jm365.work/3YeBdF/login",
-                {
-                },
+                {},
                 `username=${account}&password=${base64}\n&id_remember=on&login_remember=on&submit_login=`
             );
             if (res.status === 200) {
